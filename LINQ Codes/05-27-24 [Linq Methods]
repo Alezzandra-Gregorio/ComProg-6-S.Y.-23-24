@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+					
+public class Program //main class for calling other methods
+{
+	public static void Main()
+	{
+		List<Student> students = new List<Student>();
+		//var Students = new List<Student>();
+		
+		//student 1
+		students.Add(new Student()
+		{
+			Name = "Alezzandra",
+			Age = 18
+		});
+		
+		//student 2
+		students.Add(new Student()
+		{
+			Name = "Erika",
+			Age = 17
+		});
+		
+		//student 3
+		students.Add(new Student()
+		{
+			Name = "Johna",
+			Age = 19
+		});
+		
+		//student 4
+		students.Add(new Student()
+		{
+			Name = "Julius",
+			Age = 17
+		});
+		
+		//student 5
+		students.Add(new Student()
+		{
+			Name = "Christian",
+			Age = 19
+		});
+		
+		//student 6
+		students.Add(new Student()
+		{
+			Name = "Adrian",
+			Age = 18
+		});
+		
+		Console.WriteLine("List of Students: \n");
+		//prints out all the student names
+		students.ForEach(student => 
+		{
+			Console.WriteLine("Name: " + student.Name + "\nAge: " + student.Age +"\n");
+		});
+		
+		//prints out youngest & oldest age
+		Console.WriteLine("Youngest: " + students.Min(student => student.Age) + "\nOldest: " + students.Max(student => student.Age));
+		
+		var studentsBelow18 = students.Where (student => student.Age < 18).Select(student => student.Name).ToList();
+		//prints out students below 18
+		Console.WriteLine("\nStudents below 18: ");
+		studentsBelow18.ForEach(sb18 => {
+			Console.WriteLine("- " + sb18);
+		});
+		
+		var studentsAged100 = students.Any (student => student.Age == 100);
+		//prints out students aged 100
+		Console.WriteLine("\nAre there any students aged 100?" + "\n- " + studentsAged100);
+	}
+}
+
+public class Student
+{
+	public string Name {get; set;}
+	public int Age {get; set;}
+}
+	
