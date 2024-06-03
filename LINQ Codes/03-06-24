@@ -88,30 +88,33 @@ public class Program
 			SALARY = 9000.00M
 		});
 		
-		// Display all employees
+		Console.WriteLine("\nEmployees sorted by name:");
+		DisplayNamesAlphabetically(employees);
+		
+		Console.WriteLine("\nDisplay IDs & Names:");
 		employees.ForEach(employee => 
 		{
 			Console.WriteLine(employee.ID + " " + employee.NAME);
 		});
 		
-		// Display names alphabetically
-		Console.WriteLine("\nEmployees sorted by name:");
-		DisplayNamesAlphabetically(employees);
-		
-		// Fix method to display average salary of freelancers
 		Console.WriteLine("\nAverage salary of freelancers:");
 		DisplayAverageSalaryOfFreelancers(employees);
 		
-		// Calculate and display the sum of all salaries
 		decimal sum = employees.Select(x => x.SALARY).Sum();
-		Console.WriteLine("\nSum of all salaries: " + sum);
+		Console.WriteLine("\ntTotal of all salaries: " + sum);
 		
-		// Check if there is an LMNOP company
 		var LMNOP = employees.Any(employee => employee.COMPANY == "LMNOP");
 		Console.WriteLine("\nIs there an LMNOP company?\n- " + LMNOP);
+		
+		Console.WriteLine("\nNumber of employees with odd employee IDs: " + CountEmployeesWithOddID(employees));
+
+        Console.WriteLine("\nCompany names:");
+        DisplayUniqueCompanyNames(employees);
+
+        Console.WriteLine("\nDifference between highest and lowest salary: " + GetSalaryDifference(employees));
 	}
 	
-	// Method to display names alphabetically
+	
 	public static void DisplayNamesAlphabetically(List<Employee> employees)
 	{
 		var sortedEmployees = employees.OrderBy(e => e.NAME).ToList();
@@ -120,8 +123,7 @@ public class Program
 			Console.WriteLine(employee.NAME);
 		});
 	}
-	
-	// Method to display average salary of freelancers
+
 	public static void DisplayAverageSalaryOfFreelancers(List<Employee> employees)
 	{
 		var freelancerSalaries = employees
@@ -138,7 +140,30 @@ public class Program
 			Console.WriteLine("No freelancers found.");
 		}
 	}
+	
+	public static decimal GetSalaryDifference(List<Employee> employees)
+    {
+        decimal highestSalary = employees.Max(employee => employee.SALARY);
+        decimal lowestSalary = employees.Min(employee => employee.SALARY);
+        return highestSalary - lowestSalary;
+    }
+	
+	public static void DisplayUniqueCompanyNames(List<Employee> employees)
+    {
+        var uniqueCompanyNames = employees.Select(employee => employee.COMPANY).Distinct().Take(3);
+        foreach (var companyName in uniqueCompanyNames)
+        {
+            Console.WriteLine(companyName);
+        }
+    }
+	
+	public static int CountEmployeesWithOddID(List<Employee> employees)
+    {
+        return employees.Count(employee => employee.ID % 2 != 0);
+    }
 }
+
+
 
 public class Employee
 {
