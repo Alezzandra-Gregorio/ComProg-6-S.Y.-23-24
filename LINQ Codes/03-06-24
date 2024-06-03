@@ -1,0 +1,122 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+					
+public class Program
+{
+	public static void Main()
+	{
+		List<Employee> employees = new List<Employee>();
+		
+		employees.Add(new Employee()
+		{
+			ID = 1,
+			NAME = "Christian Usares",
+			COMPANY = "ABC",
+			SALARY = 165000.00M
+		});
+		
+		employees.Add(new Employee()
+		{
+			ID = 2,
+			NAME = "Johna Espiritu",
+			COMPANY = "ABC",
+			SALARY = 150000.00M
+		});
+		
+		employees.Add(new Employee()
+		{
+			ID = 3,
+			NAME = "Alezzandra Gregorio",
+			COMPANY = "ABC",
+			SALARY = 160000.00M
+		});
+		
+		employees.Add(new Employee()
+		{
+			ID = 4,
+			NAME = "Adrian Calano",
+			COMPANY = "XYZ",
+			SALARY = 17000.00M
+		});
+		
+		employees.Add(new Employee()
+		{
+			ID = 5,
+			NAME = "Julius Medina",
+			COMPANY = "XYZ",
+			SALARY = 15000.00M
+		});
+		
+		employees.Add(new Employee()
+		{
+			ID = 6,
+			NAME = "Erika Sambo",
+			COMPANY = "XYZ",
+			SALARY = 18000.00M
+		});
+		
+		employees.Add(new Employee()
+		{
+			ID = 7,
+			NAME = "Lilia Vanrouge",
+			COMPANY = "Freelancers",
+			SALARY = 10000.00M
+		});
+		
+		employees.Add(new Employee()
+		{
+			ID = 8,
+			NAME = "Malleus Draconia",
+			COMPANY = "Freelancers",
+			SALARY = 11000.00M
+		});
+		
+		employees.Add(new Employee()
+		{
+			ID = 9,
+			NAME = "Sebek Zigvolt",
+			COMPANY = "Freelancers",
+			SALARY = 9000.00M
+		});
+		
+		employees.Add(new Employee()
+		{
+			ID = 10,
+			NAME = "Silver Vanrouge",
+			COMPANY = "Freelancers",
+			SALARY = 9000.00M
+		});
+		
+		//var alphabetizedEmployee = employees.OrderBy(x => x).ToList();
+		//Console.WriteLine(alphabetizedEmployee);
+		
+		employees.ForEach(employee => 
+		{
+			Console.WriteLine(employee.ID + " " + employee.NAME);
+		});
+		
+		var averageEmp = employees.Where (employee => employee.COMPANY == "Freelancers" ).Select(employee => employee.NAME).ToList();
+		//prints out students below 18
+		Console.WriteLine("\nAverage salary of freelancers");
+		decimal average = employees.Select(x => x.SALARY).Average();
+		Console.WriteLine(average);
+		
+		//decimal average = employees.Select(x => x.SALARY).Average();
+		//Console.WriteLine("\n" + average);
+		
+		decimal sum = employees.Select(x => x.SALARY).Sum();
+		Console.WriteLine("\n" + sum);
+		
+		var LMNOP = employees.Any (employee => employee.COMPANY == "LMNOP");
+		Console.WriteLine("\nIs there an LMNOP company?" + "\n- " + LMNOP);
+	}
+}
+
+public class Employee
+{
+	public int ID {get; set;}
+	public string NAME {get; set;}
+	public string COMPANY {get; set;}
+	public decimal SALARY {get; set;}
+}
