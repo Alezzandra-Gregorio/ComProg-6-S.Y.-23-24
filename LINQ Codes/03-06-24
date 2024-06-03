@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-					
+
 public class Program
 {
 	public static void Main()
@@ -88,35 +88,62 @@ public class Program
 			SALARY = 9000.00M
 		});
 		
-		//var alphabetizedEmployee = employees.OrderBy(x => x).ToList();
-		//Console.WriteLine(alphabetizedEmployee);
-		
+		// Display all employees
 		employees.ForEach(employee => 
 		{
 			Console.WriteLine(employee.ID + " " + employee.NAME);
 		});
 		
-		var averageEmp = employees.Where (employee => employee.COMPANY == "Freelancers" ).Select(employee => employee.NAME).ToList();
-		//prints out students below 18
-		Console.WriteLine("\nAverage salary of freelancers");
-		decimal average = employees.Select(x => x.SALARY).Average();
-		Console.WriteLine(average);
+		// Display names alphabetically
+		Console.WriteLine("\nEmployees sorted by name:");
+		DisplayNamesAlphabetically(employees);
 		
-		//decimal average = employees.Select(x => x.SALARY).Average();
-		//Console.WriteLine("\n" + average);
+		// Fix method to display average salary of freelancers
+		Console.WriteLine("\nAverage salary of freelancers:");
+		DisplayAverageSalaryOfFreelancers(employees);
 		
+		// Calculate and display the sum of all salaries
 		decimal sum = employees.Select(x => x.SALARY).Sum();
-		Console.WriteLine("\n" + sum);
+		Console.WriteLine("\nSum of all salaries: " + sum);
 		
-		var LMNOP = employees.Any (employee => employee.COMPANY == "LMNOP");
-		Console.WriteLine("\nIs there an LMNOP company?" + "\n- " + LMNOP);
+		// Check if there is an LMNOP company
+		var LMNOP = employees.Any(employee => employee.COMPANY == "LMNOP");
+		Console.WriteLine("\nIs there an LMNOP company?\n- " + LMNOP);
+	}
+	
+	// Method to display names alphabetically
+	public static void DisplayNamesAlphabetically(List<Employee> employees)
+	{
+		var sortedEmployees = employees.OrderBy(e => e.NAME).ToList();
+		sortedEmployees.ForEach(employee => 
+		{
+			Console.WriteLine(employee.NAME);
+		});
+	}
+	
+	// Method to display average salary of freelancers
+	public static void DisplayAverageSalaryOfFreelancers(List<Employee> employees)
+	{
+		var freelancerSalaries = employees
+			.Where(employee => employee.COMPANY == "Freelancers")
+			.Select(employee => employee.SALARY);
+			
+		if (freelancerSalaries.Any())
+		{
+			decimal averageSalary = freelancerSalaries.Average();
+			Console.WriteLine(averageSalary);
+		}
+		else
+		{
+			Console.WriteLine("No freelancers found.");
+		}
 	}
 }
 
 public class Employee
 {
-	public int ID {get; set;}
-	public string NAME {get; set;}
-	public string COMPANY {get; set;}
-	public decimal SALARY {get; set;}
+	public int ID { get; set; }
+	public string NAME { get; set; }
+	public string COMPANY { get; set; }
+	public decimal SALARY { get; set; }
 }
